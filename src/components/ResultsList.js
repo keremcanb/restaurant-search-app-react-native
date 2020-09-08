@@ -9,12 +9,8 @@ import {
 import { withNavigation } from 'react-navigation';
 import ResultsDetail from './ResultsDetail';
 
-const ResultsList = ({ title, results, navigation }) => {
-  if (!results.length) {
-    return null;
-  }
-
-  return (
+const ResultsList = ({ title, results, navigation }) =>
+  results.length && (
     <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
       <FlatList
@@ -22,21 +18,16 @@ const ResultsList = ({ title, results, navigation }) => {
         showsHorizontalScrollIndicator={false}
         data={results}
         keyExtractor={(result) => result.id}
-        renderItem={({ item }) => {
-          return (
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate('ResultsShow', { id: item.id })
-              }
-            >
-              <ResultsDetail result={item} />
-            </TouchableOpacity>
-          );
-        }}
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            onPress={() => navigation.navigate('ResultsShow', { id: item.id })}
+          >
+            <ResultsDetail result={item} />
+          </TouchableOpacity>
+        )}
       />
     </View>
   );
-};
 
 const styles = StyleSheet.create({
   title: {
